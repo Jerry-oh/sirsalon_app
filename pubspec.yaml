@@ -1,0 +1,55 @@
+name: starbucks_app
+description: A new Flutter application.
+
+publish_to: 'none'
+
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  cupertino_icons: ^1.0.0
+  font_awesome_flutter: ^8.12.0
+  google_fonts: ^1.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  change_app_package_name: ^0.1.3
+
+flutter:
+
+
+
+  uses-material-design: true
+
+
+  assets:
+     - images/sirsalon1.jpg
+     - images/sirsalon2.jpg
+     - images/sirsalon3.jpg
+     - images/sirsalon4.jpg
+     - images/sirsalon5.jpg
+     - images/sirsalon6.jpg
+     - images/sirsalon7.jpg
+     - images/sirsalon8.jpg
+     - images/sirsalon9.jpg
+     - images/sirsalon10.jpg
+     - images/sirsalon11.jpg
+     - images/sirsalon12.jpg
+     - images/sirsalon13.jpg
+     - images/sirsalon14.jpg
+     - images/sirsalon15.jpg
+     - images/sirsalon16.jpg
+     - images/promo1.jpg
+     - images/promo2.jpg
+     - images/logo.jpg
+     - images/logo2.png
+     - images/SirSalon.jpg
+     - images/background1.jpg
+
+
