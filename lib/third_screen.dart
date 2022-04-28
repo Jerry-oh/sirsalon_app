@@ -38,7 +38,7 @@ class ThirdScreen extends StatelessWidget {
             ),
             Container(
               child: Text(
-                'Lets make a new one',
+                'Lets start a new one',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 15.0,
