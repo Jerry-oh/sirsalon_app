@@ -1,6 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:starbucks_app/model/user_model.dart';
 
-class ProfileInfo extends StatelessWidget {
+
+class ProfileInfo extends StatefulWidget {
+  @override
+  _ProfileInfoState createState() => _ProfileInfoState();
+}
+
+class _ProfileInfoState extends State<ProfileInfo> {
+
+  User user = FirebaseAuth.instance.currentUser;
+  UserModel loggedInUser = UserModel();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(user.uid)
+        .get()
+        .then((value){
+      this.loggedInUser = UserModel.fromMap(value.data());
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +66,7 @@ class ProfileInfo extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.center,
                     child: Text(
-                      'J',
+                      "${loggedInUser.firstName[0]}".toUpperCase(),
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w500,
@@ -58,7 +85,7 @@ class ProfileInfo extends StatelessWidget {
               'Name',
               style: TextStyle(
                 fontSize: 15,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w800,
                 color: Colors.black
               ),
             ),
@@ -66,7 +93,7 @@ class ProfileInfo extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(left: 15.0),
             child: Text(
-              'Jerry',
+              "${loggedInUser.firstName} ${loggedInUser.secondName}",
               style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w300,
@@ -81,7 +108,7 @@ class ProfileInfo extends StatelessWidget {
               'Birth Date',
               style: TextStyle(
                   fontSize: 15,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w800,
                   color: Colors.black
               ),
             ),
@@ -89,7 +116,7 @@ class ProfileInfo extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(left: 15.0),
             child: Text(
-              '2004-04-14',
+              "${loggedInUser.birth}".toString(),
               style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w300,
@@ -104,7 +131,7 @@ class ProfileInfo extends StatelessWidget {
               'Address',
               style: TextStyle(
                   fontSize: 15,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w800,
                   color: Colors.black
               ),
             ),
@@ -112,7 +139,7 @@ class ProfileInfo extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(left: 15.0),
             child: Text(
-              'Jl.Sutomo',
+              "${loggedInUser.address}",
               style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w300,
@@ -125,6 +152,7 @@ class ProfileInfo extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                // ignore: deprecated_member_use
                 FlatButton(
                   onPressed: (){
                     print('Edit Profile got pressed');

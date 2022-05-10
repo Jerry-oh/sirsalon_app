@@ -1,5 +1,4 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 enum Languages{
@@ -50,6 +49,7 @@ class _LanguageState extends State<Language> {
                       width: 85,
                       height: 55,
                       margin: EdgeInsets.only(top: 15, bottom: 15),
+                      // ignore: deprecated_member_use
                       child: FlatButton(
                           onPressed: (){
                             Navigator.pop(context);
@@ -101,6 +101,7 @@ class LanguageChoosen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: deprecated_member_use
     return FlatButton(
       onPressed: onPress,
       child: Container(

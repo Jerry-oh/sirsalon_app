@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class ExampleContainer extends StatelessWidget {
 
   ExampleContainer({this.cardChild, this.onPress});

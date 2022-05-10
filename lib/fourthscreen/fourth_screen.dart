@@ -1,7 +1,35 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:starbucks_app/model/user_model.dart';
 import 'export_file.dart';
 
 
-class FourthScreen extends StatelessWidget {
+// class FourthScreen extends StatelessWidget {
+
+class FourthScreen extends StatefulWidget {
+  @override
+  _FourthScreenState createState() => _FourthScreenState();
+}
+
+class _FourthScreenState extends State<FourthScreen> {
+
+  User user = FirebaseAuth.instance.currentUser;
+  UserModel loggedInUser = UserModel();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FirebaseFirestore.instance
+    .collection("users")
+    .doc(user.uid)
+    .get()
+    .then((value){
+      this.loggedInUser = UserModel.fromMap(value.data());
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +64,7 @@ class FourthScreen extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.center,
                       child: Text(
-                        'J',
+                        "${loggedInUser.firstName[0]}".toUpperCase(),
                         // textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,
@@ -49,11 +77,11 @@ class FourthScreen extends StatelessWidget {
                 ),
                 Container(
                   height: 100.0,
-                  width: 60.0,
+                  width: 100.0,
                   child: Align(
                     alignment: Alignment.center,
                     child: Text(
-                      'Jerry',
+                      "${loggedInUser.firstName}",
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 25.0,
@@ -81,6 +109,7 @@ class FourthScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        // ignore: deprecated_member_use
                         Icon(FontAwesomeIcons.signLanguage, size: 50.0,),
                         SizedBox(height: 8.0,),
                         Text(
@@ -104,6 +133,7 @@ class FourthScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        // ignore: deprecated_member_use
                         Icon(FontAwesomeIcons.pencilAlt, size: 50.0,),
                         SizedBox(height: 8.0,),
                         Text(
@@ -204,6 +234,7 @@ class FourthScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        // ignore: deprecated_member_use
                         Icon(FontAwesomeIcons.shieldAlt, size: 50.0,),
                         SizedBox(height: 8.0,),
                         Text(
@@ -271,7 +302,7 @@ class FourthScreen extends StatelessWidget {
                 padding: EdgeInsets.only(right: 185,bottom: 15.0),
                 child: ExampleContainer(
                   onPress: (){
-                    Navigator.pop(context); 
+                    Navigator.pop(context);
                   },
                   cardChild: Column(
                     mainAxisAlignment: MainAxisAlignment.center,

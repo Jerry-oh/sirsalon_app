@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "892943948631",
+    "project_id": "emailpassword-d3e7a",
+    "storage_bucket": "emailpassword-d3e7a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:892943948631:android:aff7753bbb56e0bc5fbc12",
+        "android_client_info": {
+          "package_name": "com.example.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "892943948631-6cl4isp96kuoog6scpnk161sf81qlhuj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnypr5BZ5_0ZaQOGpnZrUZh_P88B_I9VA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "892943948631-6cl4isp96kuoog6scpnk161sf81qlhuj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:892943948631:android:f7913d1bae7d1bc65fbc12",
+        "android_client_info": {
+          "package_name": "com.example.starbucks_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "892943948631-6cl4isp96kuoog6scpnk161sf81qlhuj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnypr5BZ5_0ZaQOGpnZrUZh_P88B_I9VA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "892943948631-6cl4isp96kuoog6scpnk161sf81qlhuj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

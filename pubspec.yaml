@@ -3,23 +3,32 @@ description: A new Flutter application.
 
 publish_to: 'none'
 
+analyzer:
+  enable-experiment:
+    - non-nullable
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.11.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
+  platform: ^3.1.0
+  ffi: ^1.1.2
 
-
-  cupertino_icons: ^1.0.0
-  font_awesome_flutter: ^8.12.0
-  google_fonts: ^1.1.2
+  cloud_firestore: ^3.1.14
+  firebase_auth: ^3.3.17
+  firebase_core: ^1.16.0
+  fluttertoast: ^8.0.9
+  masked_text_field: ^1.0.0
+  cupertino_icons: ^1.0.4
+  font_awesome_flutter: ^10.1.0
+  google_fonts: ^2.3.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  change_app_package_name: ^0.1.3
+
 
 flutter:
 
@@ -51,5 +60,6 @@ flutter:
      - images/logo2.png
      - images/SirSalon.jpg
      - images/background1.jpg
+     - images/login.jpg
 
 

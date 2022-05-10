@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:starbucks_app/firstscreen/ContainerPictures.dart';
 import 'package:starbucks_app/firstscreen/Container.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:starbucks_app/firstscreen/place.dart';
+import 'package:starbucks_app/model/user_model.dart';
 
 
 class FirstScreen extends StatefulWidget {
@@ -32,6 +34,22 @@ class _FirstScreenState extends State<FirstScreen> {
 
   ];
 
+  User user = FirebaseAuth.instance.currentUser;
+  UserModel loggedInUser = UserModel();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FirebaseFirestore.instance
+    .collection("users")
+    .doc(user.uid)
+    .get()
+    .then((value){
+      this.loggedInUser = UserModel.fromMap(value.data());
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +58,10 @@ class _FirstScreenState extends State<FirstScreen> {
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
+        // ignore: deprecated_member_use
         title: FlatButton(
           child: Text(
-            'Medan',
+            "${loggedInUser.address}",
             style: TextStyle(
               color: Colors.black,
               fontSize: 25.0,
