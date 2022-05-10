@@ -13,6 +13,7 @@ class FirstPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text("Hi"),
             Container(
               child: Image(image: AssetImage('images/logo.jpg'),),
             ),
