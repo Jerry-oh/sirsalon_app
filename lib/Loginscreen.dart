@@ -4,6 +4,7 @@ import 'package:starbucks_app/MyHomePage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:starbucks_app/Registerscreen.dart';
 import 'package:starbucks_app/fourthscreen/export_file.dart';
+import 'package:starbucks_app/loading.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -19,6 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController passwordController = new TextEditingController();
 
   final _auth = FirebaseAuth.instance;
+  bool loading = false;
 
 
   @override
@@ -75,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
 
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
       appBar: AppBar(
         title: Text('Hi!,Welcome Back <3'),
         backgroundColor: Colors.blueGrey,
@@ -163,6 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
   {
     if(_formKey.currentState.validate())
     {
+      setState(() => loading = true);
       await _auth
           .signInWithEmailAndPassword(email: email, password: password)
           .then((uid) => {
@@ -170,6 +173,9 @@ class _LoginScreenState extends State<LoginScreen> {
         Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MyHomePage()))
       }).catchError((e)
       {
+        setState(() {
+          loading = false;
+        });
         Fluttertoast.showToast(msg: e.message);
       });
     }

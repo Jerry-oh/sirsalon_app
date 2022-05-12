@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:starbucks_app/firstscreen/ContainerPictures.dart';
 import 'package:starbucks_app/firstscreen/Container.dart';
 import 'package:flutter/material.dart';
@@ -84,118 +86,151 @@ class _FirstScreenState extends State<FirstScreen> {
               ),
         ],
       ),
-      body: Container(
-        child: ListView(
-          children: [
-            Container(
-              height: 199.0,
-              margin: EdgeInsets.only(left: 15.0, right: 15.0, bottom: 15.0),
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  Row(
+      body: WillPopScope(
+        onWillPop: () async {
+          final shouldPop = await showMyDialog();
+          return shouldPop ?? false;
+        },
+        child: Container(
+          child: RefreshIndicator(
+            onRefresh: _refresh,
+            child: ListView(
+              children: [
+                Container(
+                  height: 199.0,
+                  margin: EdgeInsets.only(left: 15.0, right: 15.0, bottom: 15.0),
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
                     children: [
-                      ContainerPicture(image: AssetImage('images/promo1.jpg'),),
-                      ContainerPicture(image: AssetImage('images/promo2.jpg'),),
+                      Row(
+                        children: [
+                          ContainerPicture(image: AssetImage('images/promo1.jpg'),),
+                          ContainerPicture(image: AssetImage('images/promo2.jpg'),),
+                        ],
+                      ),
                     ],
                   ),
-                ],
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(left: 15.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 140.0),
-                    child: Container(
-                      child: Icon(
-                        Icons.more_horiz,
-                        size: 40.0,
-                        color: Colors.blueGrey,
-                      ),
-                    ),
-                  ),
-                  Text(
-                    'Nearby Barber',
-                    style: TextStyle(
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black
-                    ),
-                  ),
-                  ListView.builder(
-                    physics: ScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: places.length,
-                      itemBuilder: (context, index){
-                      return GestureDetector(
-                          onTap: (){
-                            print('Place got tapped');
-                          },
-                        child: Column(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(right: 10.0,top: 10.0),
-                              height: 199,
-                              width: 330,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(28),
-                                image: DecorationImage(
-                                  image: AssetImage(places[index].image),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              child: Stack(
-                                children: [
-                                  Positioned(
-                                    bottom: 10,
-                                    right: 20,
-                                    child: Icon(
-                                      Icons.navigate_next,
-                                      size: 50.0,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 20,
-                                    left: 20,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          places[index].name,
-                                          style: TextStyle(
-                                            fontSize: 20.0,
-                                            fontWeight: FontWeight.w300,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        Text(
-                                          places[index].km.toString() + 'KM',
-                                          style: TextStyle(
-                                            fontSize: 20.0,
-                                            fontWeight: FontWeight.w300,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 15.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: 140.0),
+                        child: Container(
+                          child: Icon(
+                            Icons.more_horiz,
+                            size: 40.0,
+                            color: Colors.blueGrey,
+                          ),
                         ),
-                      );
-                      }),
-                ],
-              ),
+                      ),
+                      Text(
+                        'Nearby Barber',
+                        style: TextStyle(
+                          fontSize: 30.0,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black
+                        ),
+                      ),
+                      ListView.builder(
+                        physics: ScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: places.length,
+                          itemBuilder: (context, index){
+                          return GestureDetector(
+                              onTap: (){
+                                print('Place got tapped');
+                              },
+                            child: Column(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(right: 10.0,top: 10.0),
+                                  height: 199,
+                                  width: 330,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(28),
+                                    image: DecorationImage(
+                                      image: AssetImage(places[index].image),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  child: Stack(
+                                    children: [
+                                      Positioned(
+                                        bottom: 10,
+                                        right: 20,
+                                        child: Icon(
+                                          Icons.navigate_next,
+                                          size: 50.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Positioned(
+                                        bottom: 20,
+                                        left: 20,
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              places[index].name,
+                                              style: TextStyle(
+                                                fontSize: 20.0,
+                                                fontWeight: FontWeight.w300,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            Text(
+                                              places[index].km.toString() + 'KM',
+                                              style: TextStyle(
+                                                fontSize: 20.0,
+                                                fontWeight: FontWeight.w300,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                          }),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
   }
+
+  Future<void> _refresh(){
+    setState(() {
+
+    });
+    return Fluttertoast.showToast(msg: "Refresh");
+  }
+
+  Future<bool> showMyDialog() => showDialog<bool>(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text("Do you want to exit"),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context, false),
+          child: Text("Cancel"),
+        ),
+        TextButton(
+          onPressed: () => SystemNavigator.pop(animated: true),
+          child: Text("Yes"),
+        ),
+      ],
+    ),
+  );
 }
